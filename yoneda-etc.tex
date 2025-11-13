@@ -1,0 +1,175 @@
+\documentclass[10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+%\usepackage[a4paper, margin = 50pt]{geometry}
+\usepackage[paperheight = 1000pt, paperwidth = 707pt, margin = 50pt]{geometry}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{stix}
+\usepackage{nopageno}
+\usepackage{xcolor}
+\usepackage{enumitem}
+
+%\usepackage{amsthm}
+\usepackage{amsmath}
+%\usepackage{amssymb}
+\usepackage{tikz-cd}
+
+\input{my-tex/formatting}
+\input{my-tex/operators}
+\input{my-tex/symbols}
+\input{my-tex/names}
+
+\title{``\emph{So much in this beautiful diagram}'': \\ Yoneda, its standard corollaries, free (co)completions, and Isbell duality}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\vspace{-20pt}
+
+\noindent Given a category \(\Cee\), consider the following diagram in (the \(\soft{ 2 , 1 }\)-category of categories) \( \Cat \)
+
+\noindent\begin{center}\begin{tikzcd}[row sep = 100pt, column sep = 100pt]
+
+    \Cee
+    
+        \ar[r, no head, "\id"]
+        
+        \ar[d, rightarrow, "\coYo"']
+        
+        \ar[phantom, dr, "\hspace{5pt}^{\atleD^{-1} , \ \atleD}\mmoc\comm^{\Delta , \ \Delta^{-1}}"]
+    
+    & 
+    
+    \Cee
+    
+        \ar[d, rightarrow, "\Yo"] 
+    
+    \\
+    
+    \coPsh{ \Cee }
+        
+        \ar[r, rightarrow, yshift = -10pt, "\Spec"'{name = Spec}]
+        
+        \ar[loop left, rightarrow, out = 135, in = 225, looseness = 33pt, "\yhW"'{name = cyr}]
+        
+        \ar[phantom, no head, ""{name = idcp}]
+        
+        \ar[from = cyr, to = idcp, rightarrow, "\hspace{5pt} \isP^{-1}", shorten = 20pt, xshift = -10pt, yshift = 5pt]
+
+        \ar[from = cyr, to = idcp, leftarrow, "\isP"', shorten = 20pt, xshift = -10pt, yshift = -5pt]
+        
+    & 
+    
+    \Psh{ \Cee }
+    
+        \ar[l, rightarrow, yshift = 10pt, "\Oh"'{name = Oh}]
+    
+        \ar[loop right, rightarrow, out = 45, in = 315, looseness = 33pt, "\Why"{name = yr}]
+        
+        \ar[phantom, no head, ""{name = idp}]
+        
+        \ar[from = yr, to = idp, rightarrow, "\Psi"', shorten = 20pt, xshift = 10pt, yshift = 5pt]
+        
+        \ar[from = yr, to = idp, leftarrow, "\hspace{5pt} \Psi^{-1}", shorten = 20pt, xshift = 10pt, yshift = -5pt]
+    
+    %\\
+    
+    \arrow[phantom, from = Oh, to = Spec, "\hspace{25pt}\dvash^{\Omega , \ \Omega^{-1}}"] 
+
+\end{tikzcd}\end{center}
+
+\vspace{-85pt}
+
+\noindent where the named (\(1\)- and \(2\)-)morphisms are given by the formulae
+
+\vspace{5pt}
+
+\begin{multicols}{2}\begin{spacing}{1.5}\begin{enumerate}[label = \textcolor{navy}{\roman*.}]\setcounter{enumi}{0}
+    \item \( \Yo \ \colon \ \into{ \Cee }{ \Psh{ \Cee } } \\
+             \Yo \ = \lam{ \cee }{ \lam{ \eec }{ \exto{ \eec }{ \cee } } } \)
+    
+    \item \( \coYo \ \colon \ \into{ \Cee }{ \coPsh{ \Cee } } \\
+             \coYo \ = \lam{ \cee }{ \lam{ \eec }{ \opexto{ \cee }{ \eec } } } \)
+    
+    \item \( \Why \ \colon \ \into{ \soft{ \Psh{ \Cee } } }{ \Psh{ \Cee } } \\
+             \Why \ = \ \lam{ \Exx }{ \lam{ \eec }{ \exto{ \op{\Yo} \ \eec }{ \Exx } } }\)
+    
+    \item \( \yhW \ \colon \ \into{ \soft{ \coPsh{ \Cee } } }{ \coPsh{ \Cee } } \\
+             \yhW \ = \ \lam{ \Ayy }{ \lam{ \eec }{ \opexto{ \Ayy }{ \op{\coYo} \ \eec } } }\)
+    
+    \item \( \Oh \ \colon \ \into{ \soft{ \Psh{ \Cee } } }{ \coPsh{ \Cee } } \\
+             \Oh \ = \ \lam{ \Exx }{ \lam{ \eec }{ \opexto{ \Exx }{ \op{\Yo} \ \eec } } }\)
+    
+    \item \( \Spec \ \colon \ \into{ \soft{ \coPsh{ \Cee } } }{ \Psh{ \Cee } } \\
+             \Spec \ = \ \lam{ \Ayy }{ \lam{ \eec }{ \exto{ \op{\coYo} \ \eec}{ \Ayy } } }\)
+    
+    \item \( \Psi \ \colon \ \exto{ \Why }{ \id } \\
+             \Psi \ = \ \lam{ \gray{\Exx} }{ \lam{ \eec }{ \lam{ \xi }{ \xi \ \eec \ \id } } }\)
+    
+    \item \( \Psi^{-1} \ \colon \ \exto{ \id }{ \Why } \\
+             \Psi^{-1} \ = \ \lam{ \Exx }{ \lam{ \gray{\eec} }{ \lam{ \chi }{ \lam{ \gray{\eec'} }{ \lam{ \eff }{ \Exx \ \ \eff \ \ \chi } } } } } \)
+    
+    \item \( \isP \ \colon \ \exto{ \id }{ \yhW } \\
+             \isP \ = \ \lam{ \gray{\Ayy} }{ \lam{ \eec }{ \mal{ \atoi }{ \atoi \ \eec \ \di } } }\)
+    
+    \item \( \isP^{-1} \ \colon \ \exto{ \yhW }{ \id } \\
+             \isP^{-1} \ = \ \lam{ \Ayy }{ \lam{ \gray{\eec} }{ \mal{ \ahpla }{ \lam{ \gray{\eec'} }{ \mal{ \ffe }{ \po{\Ayy} \ \ \ffe \ \ \ahpla } } } } } \)
+
+    \item \( \Delta \ \colon \ \exto{ \Spec \ \circ \ \coYo }{ \Yo } \\
+             \Delta \ = \ \lam{ \cee }{ \lam{ \gray{\eec} }{ \lam{ \iota }{ \op{\iota} \ \cee \ \id } } } \)
+    
+    \item \( \Delta^{-1} \ \colon \ \exto{ \Yo }{ \Spec \ \circ \ \coYo } \\
+             \Delta^{-1} \ = \ \lam{ \gray{\cee} }{ \lam{ \gray{\eec} }{ \lam{ \eff }{ \lam{ \eec' }{ \op{\Yo} \ \eec' \ \ \eff } } } } \)
+    
+    \item \( \atleD \ \colon \ \exto{ \coYo }{ \Oh \ \circ \ \Yo } \\
+             \atleD \ = \ \lam{ \cee }{ \lam{ \gray{\eec} }{ \lam{ \ix }{ \op{\ix} \ \cee \ \id } } } \)
+    
+    \item \( \atleD^{-1} \ \colon \ \exto{ \Oh \ \circ \ \Yo }{ \coYo } \\
+             \atleD^{-1} \ = \ \lam{ \gray{\cee} }{ \lam{ \gray{\eec} }{ \mal{ \ffe }{ \lam{ \eec' }{ \po{\op{\coYo}} \ \eec' \ \ \ffe } } } } \)
+    
+    \item \( \Omega \ \colon \ \exto{ \soft{ \lam{ \Exx }{ \lam{ \Ayy }{ \exto{ \Oh \ \Exx }{ \Ayy } } } } }{ \soft{ \lam{ \Exx }{ \lam{ \Ayy }{ \exto{ \Exx }{ \Spec \ \Ayy } } } } } \\
+             \Omega \ = \ \lam{ \gray{\Exx} }{ \lam{ \gray{\Ayy} }{ \lam{ \iota }{ \lam{ \eec }{ \lam{ \chi }{ \lam{ \eec' }{ \mal{ \ahpla }{ \iota \ \eec' \ \ahpla \ \eec \ \chi } } } } } } } \)
+    
+    \item \( \Omega^{-1} \colon \ \exto{ \soft{ \lam{ \Exx }{ \lam{ \Ayy }{ \exto{ \Exx }{ \Spec \ \Ayy } } } } }{ \soft{ \lam{ \Exx }{ \lam{ \Ayy }{ \exto{ \Oh \ \Exx }{ \Ayy } } } } } \\
+             \Omega^{-1} \ = \ \lam{ \gray{\Exx} }{ \lam{ \gray{\Ayy} }{ \lam{ \xi }{ \lam{ \eec }{ \mal{ \ahpla }{ \lam{ \eec' }{ \lam{ \chi }{ \xi \ \eec' \ \chi \ \eec \ \ahpla } } } } } } } \)
+
+\end{enumerate}\end{spacing}\end{multicols}
+
+\vspace{10pt}
+
+\noindent Then
+
+\vspace{5pt}
+
+\begin{multicols}{2}\begin{spacing}{1.5}\begin{enumerate}[label = \textcolor{navy}{\Roman*.}]\setcounter{enumi}{0}
+    
+    \item \( \Why \ \simeq \ \id \), witnessed by the iso \(\Psi , \ \Psi^{-1}\). (Yoneda lemma)
+    
+    \item \( \yhW \ \simeq \ \id \), witnessed by the iso \(\isP , \ \isP^{-1}\). (co-Yoneda lemma)
+    
+    \item \(\Yo\) is fully faithful.
+    
+    \item \(\coYo\) is fully faithful.
+    
+    \item \(\Yo\) commutes with [weighted] limits.
+    
+    \item \(\coYo\) commutes with [weighted] colimits.
+    
+    \item \(\Yo\) is the free cocompletion of \(\mathscr{C}\).
+    
+    \item \(\coYo\) is the free completion of \(\mathscr{C}\).
+    
+    \item \(\Spec \ \circ \ \coYo \ \simeq \ \Yo\), witnessed by the iso \(\Delta , \ \Delta^{-1}\).
+    
+    \item \(\mathscr{O} \ \circ \ \Yo \ \simeq \ \coYo\), witnessed by the iso \(\atleD , \ \atleD^{-1}\).
+    
+    \item \(\mathscr{O} \ \dashv \ \Spec\), witnessed by the iso \(\Omega , \ \Omega^{-1}\). (Isbell duality)
+    
+\end{enumerate}\end{spacing}\end{multicols}
+
+\end{document}
